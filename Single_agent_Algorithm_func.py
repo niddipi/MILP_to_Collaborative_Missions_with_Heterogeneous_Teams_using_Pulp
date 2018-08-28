@@ -47,9 +47,9 @@ G.add_edge(DUMMY,1)
 
 #Addition of Dummy edges to graph
 for i in range(0,len(tasks)):
-	#if len(G.in_edges(i)) != 0 or len(G.out_edges(i)) != 0:
-	G.add_edge(i,DUMMY)
-	G.add_edge(DUMMY,i)
+	if len(G.in_edges(i)) != 0 or len(G.out_edges(i)) != 0:
+		G.add_edge(i,DUMMY)
+		G.add_edge(DUMMY,i)
 
 print len(G.edges)
 
@@ -131,6 +131,7 @@ def Best_tasks_for_agent(Completion_map,T):
 	Required_completion = 1
 	""" EF. what do you mean by required completion? """
 #	print len(Centralized.Completion_map)
+	print "8 compl :",Completion_map[8]
 	for i in range(0,n):
 		prob += service[i]<= Completion_map[i] 
 		""" EF. some other constraint. You could also set it as bound """
