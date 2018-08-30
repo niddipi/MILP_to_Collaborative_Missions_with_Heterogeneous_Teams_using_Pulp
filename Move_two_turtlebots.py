@@ -4,6 +4,7 @@ from tf.transformations import euler_from_quaternion
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Point
 from math import atan2
+import threading
 
 
 rospy.init_node('Move_to_point')
@@ -72,34 +73,59 @@ R2Dest  = Point()
 R2Dest.x = -2
 R2Dest.x = -3
 
+def Myturtlebot1(agent1_task_route_points):
+	i =0
+	while i < len(agent1_task_route_points):
+		R1_Dest.x = agent1_task_route_points[i][0]
+	        R1_Dest.y = agent1_task_route_points[i][1]
+		while not rospy.is_shutdown():
+			R1x_diff = R1Dest.x - robot1_x
+			R1y_diff = R1Dest.y - robot1_y
+			R1new_angle = atan2(R1y_diff,R1x_diff)
+			if abs(R1new_angle - robot1_angle)> 0.2:
+				R1move.linear.x  = 0.0
+				R1move.angular.z = 0.3
+			else:
+				R1move.linear.x = 0.5
+				R1move.linear.z = 0.0
 
-while not rospy.is_shutdown():
-        R1x_diff = R1Dest.x - robot1_x
-        R1y_diff = R1Dest.y - robot1_y
+			cmd_vel_pub1.publish(R1move)
+			rate.sleep()
+			R1x_diff = R1_Dest.x - x
+			R1y_diff = R1_Dest.y - y
+			if(R1x_diff < 0.2 and R1y_diff < 0.2):
+				i = i+1
+                        	break
 
-        R1new_angle = atan2(R1x_diff,R1y_diff)
-        if abs(R1new_angle - robot1_angle)> 0.2:
-                R1move.linear.x  = 0.0
-                R1move.angular.z = 0.3
-        else:
-                R1move.linear.x = 0.5
-                R1move.linear.z = 0.0
+def Myturtlebot2(agent2_task_route_points):
+	i =0
+	while i < len(agent2_task_route_points):
+		R2_Dest.x = agent2_task_route_points[i][0]
+		R2_Dest.y = agent2_task_route_points[i][1]
+		while not rospy.is_shutdown():
+			R2x_diff = R2Dest.x - robot2_x
+			R2y_diff = R2Dest.y - robot2_y
+			R2new_angle = atan2(R2y_diff,R2x_diff)
+			if abs(R2new_angle - robot2_angle)> 0.2:
+				R2move.linear.x  = 0.0
+				R2move.angular.z = 0.3
+			else:
+				R2move.linear.x = 0.5
+				R2move.linear.z = 0.0
+			
+			cmd_vel_pub2.publish(R2move)
+			rate.sleep()
+			R2x_diff = R2_Dest.x - x
+			R2y_diff = R2_Dest.y - y
+			if(R2x_diff < 0.2 and R2y_diff < 0.2):
+				i = i+1
 
-        cmd_vel_pub1.publish(R1move)
+                        	break
 
-	
-	R2x_diff = R2Dest.x - robot2_x
-        R2y_diff = R2Dest.y - robot2_y
+thread1 = threading.Thread(target=MyThread1, args=[])
+thread2 = threading.Thread(target=MyThread2, args=[])
+thread1.start()
+thread2.start()
+thread1.join()
+thread2.join()
 
-	
-        R2new_angle = atan2(R2x_diff,R2y_diff)
-        if abs(R2new_angle - robot2_angle)> 0.2:
-                R2move.linear.x  = 0.0
-                R2move.angular.z = 0.3
-        else:
-                R2move.linear.x = 0.5
-                R2move.linear.z = 0.0
-	
-        cmd_vel_pub2.publish(R2move)
-
-        rate.sleep()
