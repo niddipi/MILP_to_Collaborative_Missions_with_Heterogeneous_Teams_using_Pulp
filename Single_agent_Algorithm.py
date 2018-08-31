@@ -87,7 +87,7 @@ for i in range(0, n)+[DUMMY]:
     w.append(pulp.LpVariable('w_' + str(i), cat='Integer'))
 
 
-T = 10
+T = 5
 prob += pulp.lpSum([w[i] for i in range(0,n)]) <= T#Here I considered yk =1   
 ##Condition 5 where T = 5(Missions intervals assigned to the task)
 """ EF. range(0,n) should be range(0,n+1) to include the dummy """
