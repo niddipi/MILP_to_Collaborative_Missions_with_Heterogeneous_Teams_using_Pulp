@@ -17,8 +17,12 @@ reward["agent2"] = [1,1,2,1,2,1,1,1,1,1,1,0.2,1,1,0.5,1,4,1,1,1,2,1,1,1]
 
 #Efficiency(psi) of the task
 efficiency = {"agent1":[],"agent2":[]}
-efficiency["agent1"] = [0.3,1,0.1,0.2,0.1,0.5,0.6,0.2,0.7,0.6,0.5,0.6,0.3,0.1,0.3,0.4,0.2,1,0.2,0.5,0.2,0.6,0.6,1]
-efficiency["agent2"] = [0.3,0.1,0.4,0.2,0.1,0.5,0.6,0.2,0.9,0.6,0.5,0.6,0.3,0.9,0.3,0.4,0.2,1,0.2,0.5,1,0.6,0.6,0.1]
+#efficiency["agent1"] = [0.3,1,0.1,0.2,0.1,0.5,0.6,0.2,0.7,0.6,0.5,0.6,0.3,0.1,0.3,0.4,0.2,1,0.2,0.5,0.2,0.6,0.6,1]
+efficiency["agent1"]=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
+#efficiency["agent2"] = [0.3,0.1,0.4,0.2,0.1,0.5,0.6,0.2,0.9,0.6,0.5,0.6,0.3,0.9,0.3,0.4,0.2,1,0.2,0.5,1,0.6,0.6,0.1]
+efficiency["agent2"]=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
 
 """ EF. Dummy task is represented by index n"""
 DUMMY = {"agent1":24,"agent2":24}
@@ -215,12 +219,13 @@ def Best_tasks_for_agent(Completion_map,T):
         task["agent2_task_route_points"]= agent2_task_route_points
         return task
 
+'''
 Completion_map = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-T = 10
+T = 5
 task = Best_tasks_for_agent(Completion_map,T)
 print task
 pos1 = nx.spring_layout(G["agent2"],k=0.7,iterations=20)
 nx.draw(G["agent2"],pos1,with_labels=True)
 plt.title('Traversability graph given')
 plt.show()
-
+'''

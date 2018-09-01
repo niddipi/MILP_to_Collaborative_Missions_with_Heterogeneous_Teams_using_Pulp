@@ -4,11 +4,14 @@ from tf.transformations import euler_from_quaternion
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Point
 from math import atan2
+from Centralized_Multiple_agents import Best_tasks_for_agent 
 import threading
 
 
 rospy.init_node('Move_to_point')
-
+T = 5
+Completion_map = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+count = 0
 #Robot1 parameters
 robot1_x = 0.0
 robot1_y = 0.0
@@ -20,13 +23,17 @@ robot2_x = 0.0
 robot2_y = 0.0
 robot2_angle = 0.0
 
+#task
+task = {"agent1_task_route":[],"agent1_task_route_points":[],
+	"agent2_task_route":[],"agent2_task_route_points":[]}
+
 
 def R1Cur_loc(msg):
 	global robot1_x
-	global robot1_x
+	global robot1_y
 	global robot1_angle
 	robot1_x = msg.pose.pose.position.x
-	robot1_angle = msg.pose.pose.position.y
+	robot1_y = msg.pose.pose.position.y
 	robot1_orient = msg.pose.pose.orientation
 	(roll,pitch,robot1_angle)=euler_from_quaternion(
 		[robot1_orient.x,robot1_orient.y,robot1_orient.z,robot1_orient.w])
@@ -34,10 +41,10 @@ def R1Cur_loc(msg):
 
 def R2Cur_loc(msg):
 	global robot2_x
-	global robot2_x
+	global robot2_y
 	global robot2_angle
 	robot2_x = msg.pose.pose.position.x
-	robot2_angle = msg.pose.pose.position.y
+	robot2_y = msg.pose.pose.position.y
 	robot2_orient = msg.pose.pose.orientation
 	(roll,pitch,robot2_angle)=euler_from_quaternion(
 		[robot2_orient.x,robot2_orient.y,robot2_orient.z,robot2_orient.w])
@@ -62,25 +69,32 @@ rospy.loginfo("done")
 rate = rospy.Rate(10)
 
 R1move  = Twist()
-R1Dest  = Point()
+R1_Dest  = Point()
 
-R1Dest.x = 3
-R1Dest.x = 3
 
 R2move  = Twist()
-R2Dest  = Point()
+R2_Dest  = Point()
 
-R2Dest.x = -2
-R2Dest.x = -3
 
 def Myturtlebot1(agent1_task_route_points):
+	print "Heloooooo"
+	global R1_Dest
+	global R1_move
+	global robot1_x
+        global robot1_y
+        global robot1_angle
+	global count
 	i =0
+	if count == 0:
+		count =1
+		#print agent1_task_route_points
+		count = 0
 	while i < len(agent1_task_route_points):
 		R1_Dest.x = agent1_task_route_points[i][0]
 	        R1_Dest.y = agent1_task_route_points[i][1]
 		while not rospy.is_shutdown():
-			R1x_diff = R1Dest.x - robot1_x
-			R1y_diff = R1Dest.y - robot1_y
+			R1x_diff = R1_Dest.x - robot1_x
+			R1y_diff = R1_Dest.y - robot1_y
 			R1new_angle = atan2(R1y_diff,R1x_diff)
 			if abs(R1new_angle - robot1_angle)> 0.2:
 				R1move.linear.x  = 0.0
@@ -91,41 +105,75 @@ def Myturtlebot1(agent1_task_route_points):
 
 			cmd_vel_pub1.publish(R1move)
 			rate.sleep()
-			R1x_diff = R1_Dest.x - x
-			R1y_diff = R1_Dest.y - y
+			R1x_diff = abs(R1_Dest.x - robot1_x)
+			R1y_diff = abs(R1_Dest.y - robot1_y)
 			if(R1x_diff < 0.2 and R1y_diff < 0.2):
 				i = i+1
                         	break
 
 def Myturtlebot2(agent2_task_route_points):
 	i =0
+	global R2_Dest
+	global R2_move
+	global robot2_x
+        global robot2_y
+        global robot2_angle
+	global count
+	print "Heloooooo2"
+	if count == 0:
+		count =1
+		print agent2_task_route_points
+		count = 0
 	while i < len(agent2_task_route_points):
 		R2_Dest.x = agent2_task_route_points[i][0]
 		R2_Dest.y = agent2_task_route_points[i][1]
 		while not rospy.is_shutdown():
-			R2x_diff = R2Dest.x - robot2_x
-			R2y_diff = R2Dest.y - robot2_y
+			R2x_diff = R2_Dest.x - robot2_x
+			R2y_diff = R2_Dest.y - robot2_y
 			R2new_angle = atan2(R2y_diff,R2x_diff)
 			if abs(R2new_angle - robot2_angle)> 0.2:
 				R2move.linear.x  = 0.0
-				R2move.angular.z = 0.3
+				R2move.angular.z = 0.2
 			else:
 				R2move.linear.x = 0.5
 				R2move.linear.z = 0.0
 			
 			cmd_vel_pub2.publish(R2move)
 			rate.sleep()
-			R2x_diff = R2_Dest.x - x
-			R2y_diff = R2_Dest.y - y
+			R2x_diff = abs(R2_Dest.x - robot2_x)
+			R2y_diff = abs(R2_Dest.y - robot2_y)
+			print "R2_Dest :",R2_Dest.x
+			print "R2_Dest :",R2_Dest.y
+			print "X :",robot2_x
+			print "Y :",robot2_y
+			print "R2_xdiff :",R2x_diff
+			print "R2_ydiff :",R2y_diff
 			if(R2x_diff < 0.2 and R2y_diff < 0.2):
 				i = i+1
-
                         	break
 
-thread1 = threading.Thread(target=MyThread1, args=[])
-thread2 = threading.Thread(target=MyThread2, args=[])
+
+task    = Best_tasks_for_agent(Completion_map,T)
+print task
+agent1_task_route        = task["agent1_task_route"]
+agent1_task_route_points = task["agent1_task_route_points"]
+agent2_task_route        = task["agent2_task_route"]
+agent2_task_route_points = task["agent2_task_route_points"]
+
+print "agent1 :",agent1_task_route_points
+print "agent2 :",agent2_task_route_points
+thread1 = threading.Thread(target=Myturtlebot1, args=[agent1_task_route_points])
+thread2 = threading.Thread(target=Myturtlebot2, args=[agent2_task_route_points])
+
+for p in range(0,len(agent1_task_route)):
+	if agent1_task_route[p] != "24":
+		Completion_map[int(agent1_task_route[p])] = 0
+for p in range(0,len(agent2_task_route)):
+	if agent2_task_route[p] != "24":
+		Completion_map[int(agent2_task_route[p])] = 0
+
 thread1.start()
 thread2.start()
+
 thread1.join()
 thread2.join()
-
