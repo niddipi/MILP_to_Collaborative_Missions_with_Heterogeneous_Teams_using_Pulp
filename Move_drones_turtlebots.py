@@ -174,21 +174,25 @@ def Myturtlebot2(agent2_task_route_points):
 
 def publish_waypoints_uav1(agent3_task_route_points):
 	global uav1_COMPLETED
-	print " uav1_COMPLETED :",uav1_COMPLETED
+	print "agent3_task_route_points :",agent3_task_route_points
+	msg = agent3_path()
+	for i in range(len(agent3_task_route_points)):
+		point = IntList()
+		point.elements = agent3_task_route_points[i]
+		msg.way_points.append(point)
 	while(True):
-		uav1_path_pub.publish(agent3_task_route_points)
-		''''
+		print " uav1_COMPLETED :",uav1_COMPLETED
+		uav1_path_pub.publish(msg)
 		if(uav1_COMPLETED == "yes"):
 			break
-		'''
+'''
 def publish_waypoints_uav2(agent4_task_route_points):
 	global uav2_COMPLETED
 	while(True):
 		uav2_path_pub.publish(agent4_task_route_points)
-		'''
 		if(uav2_COMPLETED == "yes"):
 			break
-		'''
+'''
 
 task    = Best_tasks_for_agent(Completion_map,T)
 agent1_task_route        = task["agent1_task_route"]
@@ -203,7 +207,7 @@ agent4_task_route_points = task["agent4_task_route_points"]
 thread1 = threading.Thread(target=Myturtlebot1, args=[agent1_task_route_points])
 thread2 = threading.Thread(target=Myturtlebot2, args=[agent2_task_route_points])
 thread3 = threading.Thread(target=publish_waypoints_uav1, args=[agent3_task_route_points])
-thread4 = threading.Thread(target=publish_waypoints_uav2, args=[agent4_task_route_points])
+#thread4 = threading.Thread(target=publish_waypoints_uav2, args=[agent4_task_route_points])
 
 for p in range(0,len(agent1_task_route)):
 	if agent1_task_route[p] != "30":
@@ -220,9 +224,9 @@ for p in range(0,len(agent4_task_route)):
 thread1.start()
 thread2.start()
 thread3.start()
-thread4.start()
+#thread4.start()
 
 thread1.join()
 thread2.join()
 thread3.join()
-thread4.join()
+#thread4.join()
