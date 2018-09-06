@@ -79,11 +79,9 @@ def position_control_uav2():
             if(set_mode_client(0,"OFFBOARD")):
                print "Success"
             last_request = now 
-            print "This is if"
         else:
             if not current_state.armed and (now - last_request > rospy.Duration(5.0)):
                arming_client(True)
-               print "This is else"
                last_request = now 
 	'''
         # older versions of PX4 always return success==True, so better to check Status instead
@@ -97,9 +95,10 @@ def position_control_uav2():
         pose.header.stamp = rospy.Time.now()
         local_pos_pub.publish(pose)
 	if (abs(current_position.pose.pose.position.x - pose.pose.position.x) <= 0.1 and 
-	    abs(current_position.pose.pose.position.y - pose.pose.position.y) <= 0.1):
+	    abs(current_position.pose.pose.position.y - pose.pose.position.y) <= 0.1 and
+	    len(way_points)>0):
 		index = index+1
-	if index == len(way_points):
+	if index == len(way_points) and index != 0:
 		uav2_update_pub.publish("yes")
         rate.sleep()
 

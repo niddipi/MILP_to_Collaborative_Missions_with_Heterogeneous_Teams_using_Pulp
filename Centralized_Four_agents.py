@@ -20,9 +20,7 @@ reward["agent4"] = [0.1,0.1,0.1,0.1,0.1,0.1,0.1,1,2,2,2,1,1,1,1,1,1,2,2,2,2,2,2,
 
 #Efficiency(psi) of the task
 efficiency = {"agent1":[],"agent2":[],"agent3":[],"agent4":[]}
-#efficiency["agent1"] = [0.3,1,0.1,0.2,0.1,0.5,0.6,0.2,0.7,0.6,0.5,0.6,0.3,0.1,0.3,0.4,0.2,1,0.2,0.5,0.2,0.6,0.6,1]
 efficiency["agent1"]= [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-#efficiency["agent2"] = [0.3,0.1,0.4,0.2,0.1,0.5,0.6,0.2,0.9,0.6,0.5,0.6,0.3,0.9,0.3,0.4,0.2,1,0.2,0.5,1,0.6,0.6,0.1]
 efficiency["agent2"]=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 efficiency["agent3"]=[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
 efficiency["agent4"]=[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
@@ -37,6 +35,7 @@ G["agent1"].add_nodes_from(tasks)
 G["agent2"].add_nodes_from(tasks)
 G["agent3"].add_nodes_from(tasks)
 G["agent4"].add_nodes_from(tasks)
+
 #Edges of the graph
 Edges1 = [(0, 1),(1, 7),(0,6),(6,12),(12,13),(7, 13),(13, 19),(19, 20),(20, 21),(21,15),(15,14),(14,8),(8,2),(2,1)]
 Edges2 = [(5, 11),(11, 17),(17,16),(16,10),(10,4),(4,3),(9, 15),(15, 21),(21, 22),(22,23),(23,17)]
@@ -52,11 +51,9 @@ G["agent4"].add_edges_from(Edges4)
 ##Assigned time for the task
 w = {"agent1":[],"agent2":[],"agent3":[],"agent4":[]}
 
-
-
 x = {"agent1":{},"agent2":{},"agent3":{},"agent4":{}}
 
-""" EF. add variable y """
+"""  add variable y """
 y ={"agent1":{},"agent2":{},"agent3":{},"agent4":{}}
 
 G["agent1"].add_edge(DUMMY,0)
@@ -124,7 +121,7 @@ def Best_tasks_for_agent(Completion_map,T):
 					prob += ((t[key][i] + w[key][i] - t[key][j]) <= (1-x[key][i,j])*(T+1))
 
 
-	""" EF. constraints (3) and (4) must be specified """
+	""" constraints (3) and (4) must be specified """
 	for key in x:
 		prob += pulp.lpSum([x[key][i,DUMMY] for i in range(0,n) 
 							if G[key].has_edge(i,DUMMY)]) == 1,""
@@ -132,7 +129,7 @@ def Best_tasks_for_agent(Completion_map,T):
 							if G[key].has_edge(DUMMY,i)]) == 1,""
 
 	service = {"agent1":[],"agent2":[],"agent3":[],"agent4":[]} #phi variable
-	""" EF. service should be continuous """
+	"""  service should be continuous """
 	for key in x:
 		for i in range(0, n):
 		    service[key].append(pulp.LpVariable(key+'phi_' + str(i), cat='Continuous'))
