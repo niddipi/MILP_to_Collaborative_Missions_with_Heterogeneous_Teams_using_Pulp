@@ -1,0 +1,610 @@
+%% bare_conf.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+\newcommand\Tau{\mathcal{T}}
+\documentclass[conference]{IEEEtran}
+% Some Computer Society conferences also require the compsoc mode option,
+% but others use the standard conference format.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+   \usepackage[pdftex]{graphicx}
+   %declare the path(s) where your graphic files are
+   \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+   \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+\usepackage{amsmath}
+\usepackage{amssymb}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems.The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+\ifCLASSOPTIONcompsoc
+  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+  \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% .TeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+%There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Implementation of Decentralized Coordination\\ for Spatial Task Allocation
+and Scheduling\\ in Heterogeneous Teams on real robots}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Neelesh Iddipilla}
+\IEEEauthorblockA{Computer Science Department\\
+Oklahoma State University\\
+Stillwater\\
+Email: neelesh.iddipilla@okstate.edu}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+In the context of coordination and planning in collaborative multi-robot/agent systems, we consider a general reference problem that includes tasks that are spatially localized and have an associated service time, and accounts for the use of a heterogeneous team, in which different robots may have a different performance on the same task. A mixed integer linear formulation is introduced and used to solve the problem of decentralization, aiming to balance the tradeoff among implementation costs, computational requirements, and quality of coordination\cite{feo2016decentralized}. The approach will be verified on the robots and results will be presented. Gazebo simulator is being used for testing the mathematical approach on multi-agents.
+\end{abstract}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+% no \IEEEPARstart
+It is well understood that, in general, the support of a coordinated planning scheme is necessary to optimize the performance of a multi-agent team\cite{feo2016decentralized}. Coordination is required to avoid conflicts, unnecessary overlapping, and incoherent executions, while, at the same time, to boost cooperation and synergies when tackling a common mission. This is even more true when the team is heterogeneous, due to the fact that different agents might perform differently for the various sub-tasks composing the overall mission. In this work, we focus on mission scenarios that require the use of embedded physical agents, a mobile multi-robot team in particular, and that are defined through a set of spatially distributed tasks, each with its own characteristics and demand levels. The class of problems that we consider generalizes the classical multi-robot task allocation problems. The problem is referred by the authors as the spatial task allocation and scheduling problem in heterogeneous multi-robot teams, or STASP-HMR in short. The authors proposed a decentralized approach for STASP-HMR, where each agent runs a replica of the mathematical model, based on local data and limited information sharing. Apart from the characterization of the above class of problems, our contribution here is two-fold. First, they introduced a decentralized coordination and planning algorithm that meets computational and communication requirements, and at the same time incurs in limited performance losses compared to the centralized solution. Second, they proposed a general top-down recipe for deriving an effective decentralized scheme from a centralized mathematical model. Moreover, a third contribution consists in the identification of a set of interrelated design aspects that have a critical impact on the performance of a decentralized team.
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that the IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command,
+% and the \label for the overall figure must come after \caption.
+% \hfil is used as a separator to get equal spacing.
+% Watch out that the combined width of all the subfigures on a 
+% line do not exceed the text width or a line break will occur.
+%
+\iffalse
+\begin{figure*}[!t]
+\centering
+\subfloat[1]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/homogeneous.jpg}
+\label{fig_first_case}}
+\hfil
+\subfloat[2]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/heterogeneous.jpg}
+\label{fig_second_case}}
+\caption{Task Efficiency of each robot (a) homogeneous case and (b) heterogeneous case}
+\label{fig_sim}
+\subfloat[1]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/homogeneous1.jpg}
+\label{fig_first_case1}}
+\hfil
+\subfloat[2]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/heterogeneous1.jpg}
+\label{fig_second_case1}}
+\caption{Task Efficiency of each robot (a) homogeneous case and (b) heterogeneous case}
+\label{fig_sim1}
+\end{figure*}
+\fi
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat[]), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+% labels, the optional argument to \subfloat must be present. If a
+% subcaption is not desired, just leave its contents blank,
+% e.g., \subfloat[].
+
+
+% An example of a floating table. Note that, for IEEE style tables, the
+% \caption command should come BEFORE the table and, given that table
+% captions serve much like titles, are usually capitalized except for words
+% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
+% and up, which are usually not capitalized unless they are the first or
+% last word of the caption. Table text will default to \footnotesize as
+% the IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that the IEEE does not put floats in the very first column
+% - or typically anywhere on the first page for that matter. Also,
+% in-text middle ("here") positioning is typically not used, but it
+% is allowed and encouraged for Computer Society conferences (but
+% not Computer Society journals). Most IEEE journals/conferences use
+% top floats exclusively. 
+% Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the
+% \fnbelowfloat command of the stfloats package.
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgment
+\section{Related Work}
+Plan monitoring in a collaborative multi-agent system requires an agent to not only monitor the execution of its own plan, but also detect the possible deviations or failures in plan execution of its teammate. They designed an Expectation Maximiztion (EM) based algorithm for detection of plan deviation of agents in a multi-agent system\cite{banerjee2016detection}.
+In my paper I tackle the problem of coordination and planning in collaborative multi-robot/agent systems using top-down recipe for decentralization, aiming to balance the tradeoff among implementation costs, computational requirements, and quality of coordination.
+
+This paper addresses task allocation to coordinate a fleet of autonomous vehicles by presenting two decentralized algorithms: the consensus based auction algorithm (CBAA) and its generalization to the multi-assignment problem, i.e., the consensus-based bundle algorithm (CBBA)\cite{choi2009consensus}.
+From the above paper I understood how they are doing conflict-free assignment of tasks to multi-agent tea. This can be an alternative approach to Mixed linear formulation approach.
+
+Although multi-robot systems have received substantial research attention in recent years, multi-robot coordination
+still remains a difficult task. Especially, when dealing with spatially distributed tasks and many robots, central control quickly becomes infeasible due to the exponential explosion in the number of joint actions and states. The authors proposed a general algorithm that allows for distributed control, that overcomes the exponential growth in the number of joint actions by aggregating the effect of other agents in the system into a probabilistic model, called subjective approximations, and then choosing the best response. They showed for a multi-robot grid world how the algorithm can be implemented in the well studied Multiagent Markov Decision Process framework, as a sub-class called spatial task allocation problems (SPTAPs)\cite{claes2015effective}.
+
+From the above paper I understood that how spatial tasks can be allocated to multi-agents using Markov Decision Process framework .This algorithm can be used as an alternative approach to allocating tasks to robots through mixed integer linear program approach.
+
+(AUTOMATIC target recognition ATR) involves determining the visual and other distinguishing features of an object, which is usually from a distance, and using this signature to automatically identify the object as a potential target. For many current applications,ATR is performed by unmanned aerial vehicles (UAVs) that fly within a reconnaissance area to collect image data through sensors and upload the data to a central ground control station for analyzing and identifying potential targets. The centralized approach to ATR introduces several problems, including scalability with the number of UAVs, network delays in communicating with the central location, and the susceptibility of the system to malicious attacks on the central location. These challenges can be addressed by using a distributed system for performing ATR\cite{dasgupta2008multiagent}.
+In this paper, the authors described a multiagent-based prototype system that uses swarming techniques inspired from insect colonies to perform ATR using UAVs in a distributed manner within simulated scenarios.
+From the above paper I understood how multi-agent based systems can be used for AUTOMATIC target recognition ATR).
+
+In this paper a novel decentralized approach for task sequencing within a multiple missions control framework is presented. The main contribution of this work concerns the decentralization of a control framework for multiple mission execution in order to enhance the robustness of the system, and the application of the latter to a heterogeneous robotic network. The proposed approach is based on the Matrix based Discrete Event Framework (MDEF)\cite{di2011decentralized}.
+
+From the above paper I understood decentralization of a control framework for multiple mission execution in order to enhance the robustness of the system, and the application of the latter to a heterogeneous RN.
+
+A mixed integer linear formulation is introduced and used to solve the problem model in a centralized iterative manner in closed loop, team-level plans are adaptively computed and sent out. Unfortunately, a centralized scheme can suffer from computational and communication shortcomings. Therefore, we introduce a top-down recipe for decentralization, aiming to balance the tradeoff among implementation costs, computational requirements, and quality of coordination\cite{feo2016decentralized}.
+
+I am replicating the work done by the authors in the above paper. The authors have shown the results by study through an empirical sensitivity analysis, but did not test the algorithm on any robots. We intend to see the results of the algorithm using real robots.
+
+The authors presented a mixed linear formulation for mission planning in heterogeneous teams of physical agent. The targeted missions can be composed of set of spatially distributed task. The aim of mathematical formulation is to assign plans to agents by exploiting their specific characteristics in relation to the tasks,promoting their synergies. The authors included in the formulation a number of different aspects derived from real-world mission planning scenarios, which include the ability to enforce spatial-temperoral relations among groups of agents,dealing in a robust way with uncertainty in plan execution,letting open the possibility to complete a task incrementally,by different agents in different times. As a result the model is highly realistic and flexible. we also presented a computationally effective solution approach,that preserves some optimality guarantees while saving computations\cite{flushing2014mathematical}.
+
+The above paper is the initial work done by the authors using mixed linear formulation for mission planning as centralized approach in heterogeneous teams of physical agents. I have also got the idea for the experimental setup from this paper.
+
+
+Coverage Path Planning (CPP) is the task of determining a path that passes over all points of an area or volume of interest while avoiding obstacles. This task is integral to many robotic applications, such as vacuum cleaning robots, painter robots, autonomous underwater vehicles creating image mosaics, demining robots, lawn mowers, automated harvesters, window cleaners and inspection of complex structures, just to name a few. This work aims to become a starting point for researchers who are initiating their endeavors in CPP. Likewise, this work aims to present a comprehensive review of the recent breakthroughs in the field, providing links to the most interesting and successful works\cite{galceran2013survey}.
+ 
+From the above paper I understood how coverage path planning can be used to determine the paths for multi-agents in various scenarios.
+
+In this paper authors presented a decisional architecture and the associated algorithms for multi-UAV (Unmanned Aerial Vehicle) systems. The architecture enables different schemes of decision distribution in the system, depending on the available decision making capabilities of the UAVs and on the operational constraints related to the tasks to achieve. The decisional autonomy is of 5 levels which consists of both centralized and distributed decision. The paper mainly focuses on the deliberative layer of the UAVs. The authors detailed a planning scheme where a symbolic planner relies on refinement tools that exploit UAVs and environment models. Integration effort related to decisional features is highlighted, and preliminary simulation results are provided\cite{gancet2005task}.
+
+From the above paper I understood how decisional architectures can be used for multi-uav (Unmanned Aerial vehicle) Systems.
+
+This work presents a complete multi robot solution for signal searching tasks in large outdoor scenarios. An evaluation of two different coverage path-planning strategies according to field size and shape is presented. A signal location system developed to simulate mines or chemical source detections is also described. The solution presented is a pioneer in evaluating multi master robotics operative system architectures with a fleet of robots in real scenarios. This solution minimizes the use of communications bandwidth required for full operation. Finally, field results are provided, and the advantages of the implemented solution are analyzed\cite{garzon2016multirobot}.
+
+From the above I learnt how resented system integrates two different coverage path-planning approaches into a software, hardware, and communications architecture and how the system was able to successfully cover the whole area, and to detect all of the signal sources in the field, using both single and multiple robot systems.
+
+The authors proposed an online algorithm that scales linearly in the number of robots and allows for arbitrary periodic connectivity constraints. To complement the proposed algorithm, they provided theoretical inapproximability results for connectivity-constrained planning. It was shown in the non-adversarial search domain that periodic connectivity leads to improved capture times versus continual connectivity. In addition, it was demonstrated that market-based approaches that explicitly coordinate perform only marginally better than implicit coordination, even given significantly more computational time. This paper has provided formal inapproximability results for connectivity constrained multi robot planning with periodic connectivity. Their theoretical analysis has shown that many multi robot coordination problems subject to connectivity constraints cannot be approximated with an efficient algorithm (unless P = N P )\cite{hollinger2012multirobot}.
+
+Through this paper I learnt how connectivity-constrained planning can be implemented in different scenarios such as search and rescue missions.
+
+The authors work in this paper focuses on multi-agent coordination for disaster response with intra-path precedence constraints, a compelling application that is not well addressed by current coordination method. This work presents two methods for generating time-extended coordination solutions—solutions where more than one task is assigned to each agent—for domains with intra-path constraints.The first approach uses tiered auctions and two heuristic techniques, clustering and opportunistic path planning, to perform a bounded search of possible time-extended schedules and allocations.The second method uses a centralized, non-heuristic, genetic algorithm-based approach that provides higher quality solutions but at substantially greater computational cost. We compare our time-extended approaches with a range of single task allocation approaches in a simulated disaster response domain\cite{jones2011time}.
+
+From the above I learnt how multi-agent coordination can be done using heuristic techniques and genetic algorithm-based approach that provides higher quality solutions but at substantially greater computational cost.
+
+In this paper the optimal timing of air-to-ground tasks is considered. A scenario is examined, where multiple unmanned air vehicles (UAVs) must perform one or more tasks on a set of geographically dispersed targets in the presence of no-fly zones. Four different solutions to the UAV assignment problems have been evaluated and compared. Overall, the SA(Simulated Annealing) algorithm gives the best solutions and also shows the largest computation times\cite{leary2011constrained}.
+
+In the above paper the authors have used MILP(Mixed integer Linear Programming) as one of the four algorithms for the optimal task assignment.
+
+This paper deals with the task allocation problem in multi-robot systems. The authors proposed a completely distributed architecture, where robots dynamically allocate their tasks while they are building their plans. They kept focus on the problem of simple “goto” tasks allocation. The approach involves an incremental task allocation algorithm based on the Contract-Net protocol. We introduce a parameter called equity coefficient in order to equilibrate the workload between the different robots and to control the triggering of the auction process. Then, they addressed the problem raised by temporal constraints between tasks, by dynamically specifying temporary hierarchies among the tasks\cite{lemaire2004distributed}.
+
+From the above paper I understood how task allocation problem in multi-robot systems is tackled in the earlier years.
+
+This paper presents the architecture developed in the framework of the AWARE project for the autonomous distributed cooperation between unmanned aerial vehicles (UAVs), wireless sensor/actuator networks, and ground camera network. The architecture is endowed with different modules that solve the usual problems that arise during the execution of multipurpose missions, such as task allocation, conflict resolution, task decomposition, and sensor data fusion. The approach had to satisfy two main requirements: robustness for operation in disaster management scenarios and easy integration of different autonomous vehicles.The former specification led to a distributed design, and the latter was tackled by imposing several requirements on the execution capabilities of the vehicles to be integrated in the platfor.The experiments with real UAVs presented in the paper have shown that the developed architecture allows coverage of a good spectrum of missions: surveillance, sensor deployment, and fire confirmation and extinguishing. One of the key features of the architecture was the easy integration process of autonomous vehicles from different manufacturers and research groups\cite{maza2011distributed}.
+
+From the above paper I understood a different way of task-allocation and execution on muti-agents for multipurpose missions.
+
+Swarm-based systems have emerged as an attractive paradigm for implementing distributed autonomous systems for various applications in commercial, military and business domains. One of the major operations in a swarm-based system is to ensure that the individual swarm units process the tasks in the environment in an efficient manner. This can be achieved using a suitable task selection mechanism that allocates the desired number of swarm units to each task while reducing inter-task latencies and communication overhead, and, ensuring adequate commitment of resources to tasks. In this paper the authors have described and compared different heuristic-based strategies for addressing task-selection in a distributed swarmed system in a multi-agent setting. Experimental results within a simulated environment show that although robots are able to complete the tasks in the system within reasonable time, the performance of the system, especially in the distribution of tasks and robots is sub-optimal\cite{miller2006distributed}.
+
+From the above paper I understood a different heuristic-based strategies of task-allocation and execution in a distributed swarmed system in a multi-agent setting.
+
+This paper extends the consensus-based bundle algorithm (CBBA), a distributed task allocation framework previously developed by the authors, to address complex missions for a team of heterogeneous agents in a dynamic environment. The extended algorithm proposes appropriate handling of time windows of validity for tasks, fuel costs of the vehicles, and heterogeneity in the agent capabilities, while preserving the robust convergence properties of the original algorithm. An architecture to facilitate real-time task replanning in a dynamic environment is also presented, along with methods to handle varying communication constraints and dynamic network topologies. Simulation results and experimental flight tests in an indoor test environment verify the proposed task planning methodology for complex missions\cite{ponda2010decentralized}.
+
+\cite{ponda2015cooperative}Given the complexity of the cooperative missions considered, there have been numerous solution approaches developed in recent years. This chapter provides an overview of three of the most common planning frameworks: integer programming, Markov decision processes, and game theory. The chapter also considers various architectural decisions that must be addressed when implementing online planning systems for multi-agent teams, providing insights on when centralized, distributed, and decentralized architectures might be good choices for a given application, and how to organize the communication and computation to achieve desired mission performance.
+
+From the above paper I understood different methods of task-allocation and execution on muti-agents for multipurpose missions.
+
+DEMiR-CF is a generic framework designed for a multirobot team to efficiently allocate tasks among themselves and achieve an overall mission. In the design of DEMiR-CF, the following issues were particularly investigated as the design criteria: efficient and realistic representation of missions, efficient allocation of tasks to cooperatively achieve a global goal, maintenance of the system coherence and consistency by the team members, detection of the contingencies and recover from various failures that may arise during runtime, efficient reallocation of tasks (if necessary) and reorganization of team members (if necessary).Several performance tests are carried out for different domain implementations of the framework. It has been demonstrated that DEMiR-CF is an efficient, scalable, robust and complete framework for a multirobot system\cite{sariel2011generic}.
+
+From the above paper I understood a different approach of task-allocation and execution on muti-agents.
+
+In multi-robot systems, task allocation and coordination are two fundamental problems that share high synergy. Although multi-robot architectures typically separate them into distinct layers, relevant improvement may be expected from solutions that are able to concurrently handle them at the same “level”. This paper proposes a novel framework, called CoMutaR (Coalition formation based on Multi-tasking Robots), which is used for both tackle task distribution among teams of mobile robots, and to guarantee the coordination within the formed teams. Experimental results were performed using the player/stage/gazebo simulator in both loosely-coupled tasks like area surveillance and transportation, and tightly-coupled tasks like box pushing, and the results have shown that our framework was able to successfully resolve the required allocation issues\cite{shiroma2009comutar}.
+From the above paper I understood a different approach of task-allocation and execution on muti-agents. I am also using gazebo simulator for conducting experiments for my approach.
+
+\section{SPATIAL TASK ALLOCATION and SCHEDULING IN HETEROGENEOUS TEAMS}
+In this section, the authors define the concepts that underlie the model of the mission.Then provide a concise statement of the STASP-HMR.
+\subsection{Mission Representation}
+Let A be the team of heterogeneous agents available to perform joint mission in an environment of specified dimension. Overall mission is decomposed into a set of tasks \( \Tau \) The tasks can be non atomic,incrementally providing a reward proportional to progress acheived in their completion and can eventually be brought to an en.The spatial layout of tasks is captured by a traversability graph that defines how agents move between tasks\cite{feo2016decentralized}.
+The graph can be represented as G = ( \( \Tau \) , E ) ,where E contains an arc (i,j) if task j can be scheduled right after task i. In general case graph G is complete (i.e.\, E = \( \Tau \) \( \times \) \( \Tau \)), and in this we assume all tasks are independent of each other.
+
+From the point of view of the mission, the complete execution of any task \( \tau \) \( \epsilon \) \( \Tau \) provides an overall utility, or reward, indicated with \( R_{\tau} \).
+
+\subsection{Task Efficiency Model}
+Task efficiency model as the name suggests is the efficiency with which an agent can perform a specified task. The intution behind this is that any progress on the completion of a task is proportional to overall time devoted to it. In a given time if an agent performs much faster then it is considered more efficient \( \psi \) : A \( \times \) \( \Tau \) \( \to \) {R}\cite{feo2016decentralized}. 
+
+\section{CENTRALIZED SOLUTION APPROACH}
+We formulate the STASP-HMR as stated above by means of a mixed-integer linear program (MIP). An optimal solution to the MIP defines plans for each one of the agents with the goal of maximizing the total mission reward.
+
+\begin{align}
+&\displaystyle \max_{\tau \in \Tau}\hspace{0.5cm}R_\tau \phi_\tau \\ \notag\\
+&\displaystyle \text{subject to} \notag \\
+&\displaystyle \sum_{(0,j) \in E} {x_{0j}}^k  =  1\hspace{2.6cm}  {k \in A}\\ 
+&\displaystyle \sum_{(i,0) \in E} {x_{i0}}^k  =  1 \hspace{2.6cm} {k \in A}\\ 
+&\displaystyle \sum_{(i,j) \in E} {x_{ij}}^k  = \sum_{(j,i) \in E} {x_{ji}}^k = {y_j}^k \hspace{0.2cm} {k \in A,j \in \Tau}\\ 
+&\displaystyle{{t_i}^k}+{{w_i}^k}-{{t_j}^k}\leq{(1-{{x_{ij}}^k})T} \hspace{0.4cm}{k \in A,(i,j) \in E,i,j \ne 0}\\
+&{{y_i}^k} \leq {{t_i}^k},{{w_i}^k} \leq T{{y_i}^k}\hspace{1.6cm}  k \in A,i \in \Tau\\
+&\phi_{\tau} \leq \sum_{k \in A} {\psi_k}(\tau){{w_i}^k} \hspace{2.0cm} k \in A,\tau \in \Tau\\
+& 0 \leq \phi_{\tau} \leq C_{m}(\tau) \hspace{2.3cm} \tau \in \Tau \\
+&\phi_{\tau} \in \mathbb{R} \\
+&{{t_i}^k},{{w_i}^k} \in \mathbb{N}\hspace{3cm} k \in A,i \in \Tau\\
+&{x_{ij}}^k,{y_i}^k \in \{0,1\} \hspace{2.3cm}k \in A,i,j \in \Tau
+\end{align}
+
+\section{Experimental Setup}
+The aim of the experiment is to cover maximum area using multi-agents.The experiment is divided into two parts,one is using heterogeneous robots,where each robot has different task efficiencies and the later is using homogeneous robots where each robot has same task efficiency.First we divide the whole area into cells where covering each cell is subtask\cite{flushing2014mathematical}.
+In second step each robots will pick their best set of tasks for a fixed time interval.For example in multi-agent heterogeneous case if all agents start at bottom left corner of the grid and T=5sec.The possible task set for agent 1 is \[ (\tau_{00},\tau_{10},\tau_{02},\tau_{21},\tau_{31}) \] and possible task set for agent 2 is \[ (\tau_{00},\tau_{01},\tau_{11},\tau_{12},\tau_{13}) \].Thus the task allocation and execution is performed using presented Mixed integer linear formulation.
+For evaluating the experiment on robots I am using Gazebo simulator.
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+%The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{IEEEtran}
+% argument is your B.TeX string definitions and bibliography database(s)
+\bibliography{latexbib.bib}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+% that's all folks
+\end{document}
