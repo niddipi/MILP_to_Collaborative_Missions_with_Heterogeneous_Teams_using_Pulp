@@ -30,6 +30,7 @@ efficiency["agent4"]=[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 DUMMY = n
 
 G = {"agent1":nx.DiGraph(),"agent2":nx.DiGraph(),"agent3":nx.DiGraph(),"agent4":nx.DiGraph()}
+G_Sel = {"agent1":nx.DiGraph(),"agent2":nx.DiGraph(),"agent3":nx.DiGraph(),"agent4":nx.DiGraph()}
 
 G["agent1"].add_nodes_from(tasks)
 G["agent2"].add_nodes_from(tasks)
@@ -38,7 +39,7 @@ G["agent4"].add_nodes_from(tasks)
 
 #Edges of the graph
 Edges1 = [(0, 1),(1, 7),(0,6),(6,12),(12,13),(7, 13),(13, 19),(19, 20),(20, 21),(21,15),(15,14),(14,8),(8,2),(2,1)]
-Edges2 = [(5, 11),(11, 17),(17,16),(16,10),(10,4),(4,3),(9, 15),(15, 21),(21, 22),(22,23),(23,17)]
+Edges2 = [(5, 11),(11, 17),(17,16),(16,10),(16,15),(10,4),(4,3),(9, 15),(15, 21),(21, 22),(22,23),(23,17)]
 Edges3 = [(11, 17),(11,10),(10,16),(16,17),(17,23),(23,22),(22,21),(21,20),(20, 19),(19, 18),(18, 12),(12,13),(13,7),(7,1)]
 Edges4 = [(11,17),(17,23),(23,29),(29,28),(28,22),(22,21),(21,27),(27,26),(26,25),(25,24),(24,18),(18,12),(12,13),(13,14)]
 
@@ -68,7 +69,27 @@ for key in x:
 	for i in range(0,len(tasks)):
 		if len(G[key].in_edges(i)) != 0 or len(G[key].out_edges(i)) != 0:
 			G[key].add_edge(i,DUMMY)
-			#G[key].add_edge(DUMMY,i)
+
+
+def plot_the_graphs():
+	i = 0
+	temp = 30
+	for key in G:
+		i = i+1
+		p = 211
+		plt.figure(i)
+		plt.subplot(p)
+		G[key].remove_node(temp)
+		pos1 = nx.spring_layout(G[key],k=0.7,iterations=20)
+		nx.draw(G[key],pos1,with_labels=True)
+		plt.title('Traversability graph given for '+key)
+		p = p +1
+		plt.subplot(p)
+		pos2 = nx.spring_layout(G_Sel[key],k=0.7,iterations=20)
+		nx.draw(G_Sel[key],pos2,with_labels=True)
+		#plt.subplots_adjust(bottom=0.01,right=None, top=0.99)
+		plt.title('Selected path for '+key+' using centralized algorithm')
+	plt.show()
 
 #Defining the problem statement
 def Best_tasks_for_agent(Completion_map,T):
@@ -110,7 +131,7 @@ def Best_tasks_for_agent(Completion_map,T):
 		for i in range(0, n)+[DUMMY]:
 			t[key].append(pulp.LpVariable(key+'t_' + str(i), cat='Integer'))
 			w[key].append(pulp.LpVariable(key+'w_' + str(i), cat='Integer'))
-	print "T is :",T
+	print "No of Mission intervals T is :",T
 	for key in x:
 		prob += pulp.lpSum([w[key][i] for i in range(0,n)+[DUMMY]]) <= T
 	##Condition 5 where T = 5(Missions intervals assigned to the task)
@@ -199,6 +220,7 @@ def Best_tasks_for_agent(Completion_map,T):
                                 if data[1] == temp and data[0] == "agent1x":
                                         agent1_task_route.append(data[1])
                                         temp = data[2]
+					G_Sel["agent1"].add_edge(data[1],data[2])
                                         break
 	  ##Indexes of the points in locations defined
         print "Indexes of the points in task locations list defined"
@@ -218,8 +240,8 @@ def Best_tasks_for_agent(Completion_map,T):
                         for i in range(len(variable_name)):
                                 data = variable_name[i].split("_")
                                 if data[1] == temp and data[0] == "agent2x":
-					print data
                                         agent2_task_route.append(data[1])
+					G_Sel["agent2"].add_edge(data[1],data[2])
                                         temp = data[2]
                                         break
 	  ##Indexes of the points in locations defined
@@ -239,8 +261,8 @@ def Best_tasks_for_agent(Completion_map,T):
                         for i in range(len(variable_name)):
                                 data = variable_name[i].split("_")
                                 if data[1] == temp and data[0] == "agent3x":
-					print data
                                         agent3_task_route.append(data[1])
+					G_Sel["agent3"].add_edge(data[1],data[2])
                                         temp = data[2]
                                         break
 	  ##Indexes of the points in locations defined
@@ -260,8 +282,8 @@ def Best_tasks_for_agent(Completion_map,T):
                         for i in range(len(variable_name)):
                                 data = variable_name[i].split("_")
                                 if data[1] == temp and data[0] == "agent4x":
-					print data
                                         agent4_task_route.append(data[1])
+					G_Sel["agent4"].add_edge(data[1],data[2])
                                         temp = data[2]
                                         break
 	  ##Indexes of the points in locations defined
@@ -272,14 +294,11 @@ def Best_tasks_for_agent(Completion_map,T):
                         agent4_task_route_points.append(locations[int(agent4_task_route[i])])
         task["agent4_task_route"] = agent4_task_route
         task["agent4_task_route_points"]= agent4_task_route_points
+	plot_the_graphs()
         return task
 '''
+#For testing algorithm purpose
 Completion_map = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 T = 5
 task = Best_tasks_for_agent(Completion_map,T)
-print task
-pos1 = nx.spring_layout(G["agent2"],k=0.7,iterations=20)
-nx.draw(G["agent2"],pos1,with_labels=True)
-plt.title('Traversability graph given')
-plt.show()
 '''
