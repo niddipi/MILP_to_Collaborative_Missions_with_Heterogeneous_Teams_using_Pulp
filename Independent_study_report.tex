@@ -404,17 +404,16 @@ It is well understood that, in general, the support of a coordinated planning sc
 \iffalse
 \begin{figure*}[!t]
 \centering
-\subfloat[1]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/homogeneous.jpg}
-\label{fig_first_case}}
+\subfloat[1]{\includegraphics[width=0.5,textwidth]{/home/neelesh/Independent_Study/images/homogeneous.jpg}}
 \hfil
-\subfloat[2]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/heterogeneous.jpg}
+\subfloat[2]{\includegraphics[width=0.5,textwidth]{/home/neelesh/Independent_Study/images/heterogeneous.jpg}
 \label{fig_second_case}}
 \caption{Task Efficiency of each robot (a) homogeneous case and (b) heterogeneous case}
 \label{fig_sim}
-\subfloat[1]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/homogeneous1.jpg}
+\subfloat[1]{\includegraphics[width=0.5,textwidth]{/home/neelesh/Independent_Study/images/homogeneous1.jpg}
 \label{fig_first_case1}}
 \hfil
-\subfloat[2]{\includegraphics[width=2.5in,height=4.0in]{/home/neelesh/Independent_Study/images/heterogeneous1.jpg}
+\subfloat[2]{\includegraphics[width=0.5,textwidth]{/home/neelesh/Independent_Study/images/heterogeneous1.jpg}
 \label{fig_second_case1}}
 \caption{Task Efficiency of each robot (a) homogeneous case and (b) heterogeneous case}
 \label{fig_sim1}
@@ -579,11 +578,43 @@ We formulate the STASP-HMR as stated above by means of a mixed-integer linear pr
 &{{t_i}^k},{{w_i}^k} \in \mathbb{N}\hspace{3cm} k \in A,i \in \Tau\\
 &{x_{ij}}^k,{y_i}^k \in \{0,1\} \hspace{2.3cm}k \in A,i,j \in \Tau
 \end{align}
+\section{DECENTRALIZED SOLUTION APPROACH}
+In decentralized approach each agent runs a replica of the mathematical model, based on local data and limited information sharing.
 
 \section{Experimental Setup}
-The aim of the experiment is to cover maximum area using multi-agents.The experiment is divided into two parts,one is using heterogeneous robots,where each robot has different task efficiencies and the later is using homogeneous robots where each robot has same task efficiency.First we divide the whole area into cells where covering each cell is subtask\cite{flushing2014mathematical}.
-In second step each robots will pick their best set of tasks for a fixed time interval.For example in multi-agent heterogeneous case if all agents start at bottom left corner of the grid and T=5sec.The possible task set for agent 1 is \[ (\tau_{00},\tau_{10},\tau_{02},\tau_{21},\tau_{31}) \] and possible task set for agent 2 is \[ (\tau_{00},\tau_{01},\tau_{11},\tau_{12},\tau_{13}) \].Thus the task allocation and execution is performed using presented Mixed integer linear formulation.
-For evaluating the experiment on robots I am using Gazebo simulator.
+The aim of the experiment is to survey area using multi-agents.We use heterogeneous robots robots which includes turtlebots and uavs.The experiment is divided into two parts, in first part the results are calculated using centralized approach.In the second part we calculate using decentralized approach.
+The total area is divided into multiple cells where each cell is considered as a subtask.we have given reward for each subtask based on the importance of location or cell.If the location is more important to be surveyed then we assigned more reward for example a subtask with an uneven surface cannot be covered by a turtlebot hence we assign less reward for turtlebots and more reward to uavs for same subtask\cite{flushing2014mathematical}.
+We have assigned efficency to each subtask based on the amount of time taken by the robot to complete a particular task.
+For evaluating the experiment on robots we are using Gazebo simulator.
+
+\section{Results}
+The results show that to complete the same number of tasks Decentralized approach performs slower compared to centralized approach to cover same number of tasks. 
+\begin{figure*}[!t]
+\centering
+\subfloat[1]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/figure_4.png}}
+\subfloat[2]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/figure_3.png}}
+\subfloat[3]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/figure_2.png}}
+\subfloat[4]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/figure_1.png}}
+\caption{Centralized Approach, traversability graph of tasks and sequence of suggested tasks for T = 5}
+\label{fig_sim}
+\subfloat[1]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/de_figure_2.png}}
+\hfil
+\subfloat[2]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/de_figure_1.png}}
+\subfloat[3]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/de_figure_3.png}}
+\subfloat[4]{\includegraphics[width=0.25\textwidth,height=0.3\textheight]{/home/neelesh/Independent_study/images/de_figure_4.png}}
+\caption{Decentralized Approach, traversability graph of tasks and sequence of suggested tasks for T = 5}
+\label{fig_sim1}
+
+\subfloat[1]{\includegraphics[width=0.25\textwidth]{/home/neelesh/Independent_study/images/result1.png}}
+\hfil
+\subfloat[2]{\includegraphics[width=0.25\textwidth]{/home/neelesh/Independent_study/images/result2.png}}
+\subfloat[3]{\includegraphics[width=0.25\textwidth]{/home/neelesh/Independent_study/images/result3.png}}
+\subfloat[4]{\includegraphics[width=0.25\textwidth]{/home/neelesh/Independent_study/images/result4.png}}
+\caption{Results obtained for centralized and decentralized approaches}
+\label{fig_sim2}
+\end{figure*}
+
+
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
 % adjust value as needed - may need to be readjusted if
