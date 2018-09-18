@@ -1,0 +1,2 @@
+(cd ~/catkin_ws/src/Firmware && source Tools/setup_gazebo.bash $(pwd) $(pwd)/build/posix_sitl_default)
+(cd ~/catkin_ws/src/Firmware && export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd):$(pwd)/Tools/sitl_gazebo)

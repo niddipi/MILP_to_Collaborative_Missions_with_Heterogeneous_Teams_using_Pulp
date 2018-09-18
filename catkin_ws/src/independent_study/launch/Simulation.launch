@@ -1,0 +1,11 @@
+<launch>
+  <param name="/use_sim_time" value="true" />
+
+  <!-- start world
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo" 
+   args="$(find turtlebot_gazebo)/worlds/empty_wall.world" respawn="false" output="screen" />
+ -->
+  <include file="$(find offboard)/launch/working.launch"/>
+  <!-- include our robots -->
+  <include file="$(find independent_study)/launch/Multiple.launch"/>
+</launch>

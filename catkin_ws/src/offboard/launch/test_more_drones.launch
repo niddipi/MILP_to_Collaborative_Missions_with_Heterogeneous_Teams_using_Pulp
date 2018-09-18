@@ -1,0 +1,192 @@
+<launch>
+
+	<arg name = "headless" default = "false"/>
+	<arg name = "gui" default="true"/>
+	<arg name = "debug" default="false"/>
+	<arg name ="verbose" default="true"/>
+	<arg name ="paused" default="false"/>
+	<arg name="vehicle" default="iris" />
+	<arg name ="pluginlists_yaml" default="$(find mavros)/launch/px4_pluginlists.yaml"/>
+	<arg name = "est" default="lpe"/>
+	<arg name ="config_yaml" default= "$(find mavros)/launch/px4_config.yaml"/>
+	<arg name ="screen" default ="screen"/>
+	
+	<!--world-->
+	
+	<include file ="$(find gazebo_ros)/launch/empty_world.launch">
+	<arg name = "headless" value="$(arg headless)"/>
+	<arg name = "gui" value="$(arg gui)"/>
+	<arg name = "debug" value="$(arg debug)"/>
+	<arg name = "verbose" value="$(arg verbose)"/>
+	<arg name = "paused" value="$(arg paused)"/>
+	</include>
+
+<!--
+	<group ns ="A">	
+	<arg name = "fcu_url" default ="udp://:14540@localhost:14550"/>
+	<arg name = "gcs_url" default = ""/>
+	<arg name = "tgt_system" default ="1"/>
+	<arg name = "tgt_component" default = "1"/>
+	<arg name = "rcS" default = "$(find px4)/posix-configs/SITL/init/$(arg est)/iris_1"/>
+	<arg name = "sdf" default = "$(find offboard)/sdf_files/iris_1.sdf"/>
+	
+	<node name="sitl" pkg="px4" type="px4" output="screen"
+        args="$(find px4) $(arg rcS)">
+    	</node>	
+	<include file ="$(find px4)/launch/mavros.launch">
+	<arg name = "fcu_url" value = "$(arg fcu_url)"/>
+	<arg name = "gcs_url" value = "$(arg gcs_url)"/>
+	<arg name ="pluginlists_yaml" value = "$(arg pluginlists_yaml)"/>	
+	<arg name ="config_yaml" value ="$(arg config_yaml)"/>
+	<arg name ="ns" value="A"/>
+	</include>
+	<include file="$(find mavros)/launch/node.launch">
+        <arg name="gcs_url" value=""/>
+        <arg name="fcu_url" value="$(arg fcu_url)"/>
+        <arg name="tgt_system" value="$(arg tgt_system)"/>
+        <arg name="tgt_component" value="$(arg tgt_component)"/>
+        <arg name="pluginlists_yaml" value="$(arg pluginlists_yaml)" />
+        <arg name="config_yaml" value="$(arg config_yaml)" />
+	</include>
+
+
+	<arg name="x" default="0"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+	<arg name="R" default="0"/>
+	<arg name="P" default="0"/>
+	<arg name="Y" default="0"/>
+
+	<node name ="$(anon vehicle_spawn)" output ="screen" pkg="gazebo_ros" type ="spawn_model"
+	args="-sdf -file $(arg sdf) -model iris_1 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)">
+	</node>
+
+	<node name="offboardA" pkg="offboard" type="offboardA" output="screen"
+                        args="$(find offboard)">
+        </node>
+
+	</group>
+-->
+	
+	<group ns ="B">	
+	<arg name = "fcu_url" default ="udp://:14550@localhost:14555"/>
+	<arg name = "gcs_url" default = ""/>
+	<arg name = "tgt_system" default ="1"/>
+	<arg name = "tgt_component" default = "1"/>
+	<arg name = "rcS" default = "$(find px4)/posix-configs/SITL/init/$(arg est)/iris_2"/>
+	<arg name = "sdf" default = "$(find offboard)/sdf_files/iris_2.sdf"/>
+	
+	<node name="sitl" pkg="px4" type="px4" output="screen"
+        args="$(find px4) $(arg rcS)">
+    	</node>	
+
+	<include file ="$(find px4)/launch/mavros.launch">
+	<arg name = "fcu_url" value = "$(arg fcu_url)"/>
+	<arg name = "gcs_url" value = "$(arg gcs_url)"/>
+	<arg name ="pluginlists_yaml" value = "$(arg pluginlists_yaml)"/>	
+	<arg name ="config_yaml" value ="$(arg config_yaml)"/>
+	<arg name ="ns" value="B"/>
+	</include>
+<!--
+	<include file="$(find mavros)/launch/node.launch">
+        <arg name="gcs_url" value=""/>
+        <arg name="fcu_url" value="$(arg fcu_url)"/>
+        <arg name="tgt_system" value="$(arg tgt_system)"/>
+        <arg name="tgt_component" value="$(arg tgt_component)"/>
+        <arg name="pluginlists_yaml" value="$(arg pluginlists_yaml)" />
+        <arg name="config_yaml" value="$(arg config_yaml)" />
+	</include>
+-->
+
+	<arg name="x" default="-2"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+	<arg name="R" default="0"/>
+	<arg name="P" default="0"/>
+	<arg name="Y" default="0"/>
+
+	<node name ="iris_2_spawn" output ="screen" pkg="gazebo_ros" type ="spawn_model"
+	args="-sdf -file $(arg sdf) -model iris_2 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)">
+	</node>
+
+	<node name="offboardB" pkg="offboard" type="offboardB" output="screen"
+                        args="$(find offboard) ">
+        </node>
+	</group>
+
+<!--	
+	<group ns ="C">	
+
+	<arg name = "fcu_url" default ="udp://:14542@localhost:14552"/>
+	<arg name = "gcs_url" default = ""/>
+	<arg name = "tgt_system" default ="3"/>
+	<arg name = "tgt_component" default = "1"/>
+	<arg name = "rcS" default = "$(find px4)/posix-configs/SITL/init/$(arg est)/iris_3"/>
+	<arg name = "sdf" default = "$(find offboard)/sdf_files/iris_3.sdf"/>
+	
+	<node name="sitl" pkg="px4" type="px4" output="screen"
+        args="$(find px4) $(arg rcS)">
+	</node>
+
+	<include file ="$(find px4)/launch/mavros.launch">
+	<arg name = "fcu_url" value = "$(arg fcu_url)"/>
+	<arg name = "gcs_url" value = "$(arg gcs_url)"/>
+	<arg name ="pluginlists_yaml" value = "$(arg pluginlists_yaml)"/>	
+	<arg name ="config_yaml" value ="$(arg config_yaml)"/>
+	<arg name ="ns" value="C"/>
+	</include>
+	<arg name="x" default="2"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+	<arg name="R" default="0"/>
+	<arg name="P" default="0"/>
+	<arg name="Y" default="0"/>
+
+	<node name ="iris_3_spawn" output ="screen" pkg="gazebo_ros" type ="spawn_model"
+	args="-sdf -file $(arg sdf) -model iris_3 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)">
+	</node>
+
+	<node name="offboardC" pkg="offboard" type="offboardC" output="screen"
+                        args="$(find offboard) ">
+         </node>
+
+	</group>
+	
+	<group ns ="D">	
+	<arg name = "fcu_url" default ="udp://:14543@localhost:14553"/>
+	<arg name = "gcs_url" default = ""/>
+	<arg name = "tgt_system" default ="4"/>
+	<arg name = "tgt_component" default = "1"/>
+	<arg name = "rcS" default = "$(find px4)/posix-configs/SITL/init/$(arg est)/iris_4"/>
+	<arg name = "sdf" default = "$(find offboard)/sdf_files/iris_4.sdf"/>
+	
+	<node name="sitl" pkg="px4" type="px4" output="screen"
+        args="$(find px4) $(arg rcS)">
+    	</node>	
+
+	<include file ="$(find px4)/launch/mavros.launch">
+	<arg name = "fcu_url" value = "$(arg fcu_url)"/>
+	<arg name = "gcs_url" value = "$(arg gcs_url)"/>
+	<arg name ="pluginlists_yaml" value = "$(arg pluginlists_yaml)"/>	
+	<arg name ="config_yaml" value ="$(arg config_yaml)"/>
+	<arg name ="ns" value="D"/>
+	</include>
+
+	<arg name="x" default="4"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+	<arg name="R" default="0"/>
+	<arg name="P" default="0"/>
+	<arg name="Y" default="0"/>
+
+	<node name ="iris_4_spawn" output ="screen" pkg="gazebo_ros" type ="spawn_model"
+	args="-sdf -file $(arg sdf) -model iris_4 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)">
+	</node>
+
+	<node name="offboardD" pkg="offboard" type="offboardD" output="screen"
+                        args="$(find offboard) ">
+        </node>
+
+	</group>
+-->
+</launch>
