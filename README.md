@@ -6,3 +6,5 @@ scheduling heterogeneous Teams.
 Implemented the algorithm on real robots using Ros and Gazebo simulator. 
 
 The implementation is on centralized and decentralized approaches.
+
+For results and reference please look into Independent_Study.pdf 
